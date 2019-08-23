@@ -28,4 +28,8 @@ public interface TodoDao {
 
     @Query("DELETE FROM todos_table")
     void deleteAllTodo();
+
+    @Query("SELECT * FROM todos_table WHERE done=:done")
+    LiveData<List<Todo>> getTodoByState(Boolean done);
+
 }

@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int EDIT_NOTE_REQUEST = 2;
 
     TodoViewModel todoViewModel;
-    final TodoAdapter adapter = new TodoAdapter();;
+    final TodoAdapter adapter = new TodoAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +56,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(Todo todo) {
                 Intent i = new Intent(MainActivity.this, AddEditTodoActivity.class);
-                i.putExtra(AddEditTodoActivity.EXTRA_TITLE,todo.getName());
+                i.putExtra(AddEditTodoActivity.EXTRA_TITLE,todo.getTitle());
                 i.putExtra(AddEditTodoActivity.EXTRA_DESCRIPTION,todo.getDescription());
                 i.putExtra(AddEditTodoActivity.EXTRA_ID,todo.getId());
+                i.putExtra(AddEditTodoActivity.EXTRA_PRIORITY,todo.getPriority());
                 startActivityForResult(i,EDIT_NOTE_REQUEST);
-                Toast.makeText(MainActivity.this, "clicked "+todo.getName(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
                     todoViewModel.delete(todo);
                     Toast.makeText(MainActivity.this, "Todo Deleted", Toast.LENGTH_SHORT).show();
                 }
-
                 //adapter.notifyItemRemoved(position);
             }
         }).attachToRecyclerView(recyclerView);
@@ -102,24 +101,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
         if(requestCode==ADD_NOTE_REQUEST && resultCode==RESULT_OK){
             String title = data.getStringExtra(AddEditTodoActivity.EXTRA_TITLE);
             String description = data.getStringExtra(AddEditTodoActivity.EXTRA_DESCRIPTION);
-            String date = data.getStringExtra(AddEditTodoActivity.EXTRA_DATE);
+            int priority = data.getIntExtra(AddEditTodoActivity.EXTRA_PRIORITY,-1);
 
-            todoViewModel.insert(new Todo(title,description,date));
+            todoViewModel.insert(new Todo(title,description,priority));
             Toast.makeText(this,"New Todo Inserted",Toast.LENGTH_SHORT).show();
-        } if(requestCode==EDIT_NOTE_REQUEST && resultCode==RESULT_OK){
+        }else if(requestCode==EDIT_NOTE_REQUEST && resultCode==RESULT_OK){
             String title = data.getStringExtra(AddEditTodoActivity.EXTRA_TITLE);
             String description = data.getStringExtra(AddEditTodoActivity.EXTRA_DESCRIPTION);
-            String date = data.getStringExtra(AddEditTodoActivity.EXTRA_DATE);
+            int priority = data.getIntExtra(AddEditTodoActivity.EXTRA_PRIORITY,-1);
             int id = data.getIntExtra(AddEditTodoActivity.EXTRA_ID,-1);
 
-            Todo todo = new Todo(title,description,date);
+            Todo todo = new Todo(title,description,priority);
             todo.setId(id);
             todoViewModel.update(todo);
-            Log.i("TODO",todo.getName());
+            Log.i("TODO",todo.getTitle());
             Toast.makeText(this,"Todo Updated",Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(this,"Todo not saved",Toast.LENGTH_SHORT).show();

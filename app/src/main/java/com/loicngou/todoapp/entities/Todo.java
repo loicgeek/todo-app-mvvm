@@ -9,24 +9,24 @@ public class Todo {
     @PrimaryKey(autoGenerate = true)
     int id;
 
-    private String name;
+    private String title;
     private String description;
-    private String date ;
+    private int priority;
     private Boolean done;
 
-    public Todo(String name, String description,String date) {
-        this.name = name;
+    public Todo(String title, String description, int priority) {
+        this.title = title;
         this.description = description;
-        this.date = date;
+        this.priority = priority;
         this.done = false;
     }
 
-    public String getDate() {
-        return date;
+    public int getPriority() {
+        return priority;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     public Boolean getDone() {
@@ -45,12 +45,12 @@ public class Todo {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {

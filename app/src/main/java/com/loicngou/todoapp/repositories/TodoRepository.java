@@ -42,6 +42,10 @@ public class TodoRepository {
         return this.allTodos;
     }
 
+    public LiveData<List<Todo>> getTodosByState(){
+        return this.allTodos;
+    }
+
     private static class AsyncInsertTodo extends AsyncTask<Todo,Void,Void>{
 
         private TodoDao todoDao;
@@ -101,4 +105,5 @@ public class TodoRepository {
             return null;
         }
     }
+
 }

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Todo App</string>
+    <string name="reset_label">Reset</string>
+    <string name="undone_label">UnDone</string>
+    <string name="done_label">Done</string>
+    <string name="filter_label">Filter</string>
+    <string name="clear_all_label">Clear All</string>
 </resources>

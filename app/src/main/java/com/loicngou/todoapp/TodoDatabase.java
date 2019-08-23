@@ -14,7 +14,7 @@ import com.loicngou.todoapp.daos.TodoDao;
 
 import java.util.Date;
 
-@Database(entities = {Todo.class},version=3)
+@Database(entities = {Todo.class},version=4)
 public abstract class TodoDatabase extends RoomDatabase {
 
     private static TodoDatabase instance = null;
@@ -47,8 +47,8 @@ public abstract class TodoDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            this.todoDao.insert(new Todo("manger","Je dois Manger Pour etre en bonne sante","14-05-2019"));
-            this.todoDao.insert(new Todo("courir","je dois aller courir au stade cicam","10-12-2012"));
+            this.todoDao.insert(new Todo("manger","Je dois Manger Pour etre en bonne sante",1));
+            this.todoDao.insert(new Todo("courir","je dois aller courir au stade cicam",2));
             return null;
         }
     }

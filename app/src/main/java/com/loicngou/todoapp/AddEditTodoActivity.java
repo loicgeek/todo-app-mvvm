@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.DatePicker;
+import android.widget.NumberPicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -21,15 +22,14 @@ public class AddEditTodoActivity extends AppCompatActivity {
             "com.loicngou.todoapp.EXTRA_TITLE";
     public static final String EXTRA_DESCRIPTION =
             "com.loicngou.todoapp.EXTRA_DESCRIPTION";
-    public static final String EXTRA_DATE =
-            "com.loicngou.todoapp.EXTRA_DATE";
+    public static final String EXTRA_PRIORITY =
+            "com.loicngou.todoapp.EXTRA_PRIORITY";
     public static final String EXTRA_ID =
-            "com.loicngou.todoapp.EXTRA_DATE";
+            "com.loicngou.todoapp.EXTRA_ID";
 
     private TextInputEditText titleEditText;
     private TextInputEditText descriptionEditText;
-    private DatePicker datePicker;
-    private TimePicker timePicker;
+    private NumberPicker priorityNumberPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,60 +38,39 @@ public class AddEditTodoActivity extends AppCompatActivity {
 
         titleEditText = findViewById(R.id.title_edit_text);
         descriptionEditText = findViewById(R.id.descriptiion_edit_text);
-        datePicker = findViewById(R.id.date_picker);
-        timePicker = findViewById(R.id.time_picker);
+        priorityNumberPicker = findViewById(R.id.priority_number_picker);
+        priorityNumberPicker.setMinValue(1);
+        priorityNumberPicker.setMaxValue(10);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
-
         Intent i = getIntent();
         if(i.hasExtra(EXTRA_ID)){
             setTitle("Edit Todo");
             titleEditText.setText(i.getStringExtra(AddEditTodoActivity.EXTRA_TITLE));
             descriptionEditText.setText(i.getStringExtra(AddEditTodoActivity.EXTRA_DESCRIPTION));
-            datePicker.updateDate(2010,2,4);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                timePicker.setMinute(24);
-                timePicker.setHour(12);
-            }
-
-
+            priorityNumberPicker.setValue(i.getIntExtra(AddEditTodoActivity.EXTRA_PRIORITY,1));
         }else{
             setTitle("Add Todo");
         }
-
-
     }
 
     public void saveTodo(){
         String title = titleEditText.getText().toString();
         String description = descriptionEditText.getText().toString();
-        String date;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            date = String.valueOf(datePicker.getYear()) +"-"
-                    +String.valueOf(datePicker.getMonth())+"-"
-                    +datePicker.getDayOfMonth() + " "
-                    +timePicker.getHour() +":"+timePicker.getMinute();
-        }else{
-            date = String.valueOf(datePicker.getYear()) +"-"
-                    +String.valueOf(datePicker.getMonth())+"-"
-                    +datePicker.getDayOfMonth() + " ";
-        }
+        int priority = priorityNumberPicker.getValue();
 
-        if(title.trim().isEmpty() || description.trim().isEmpty() ||date.trim().isEmpty()){
+        if(title.trim().isEmpty() || description.trim().isEmpty() ){
             Toast.makeText(this,"Please Fill all Field",Toast.LENGTH_SHORT).show();
             return;
         }
-        Log.i("DATA",date);
         Intent data = new Intent();
         data.putExtra(EXTRA_TITLE,title);
         data.putExtra(EXTRA_DESCRIPTION,description);
-        data.putExtra(EXTRA_DATE,date);
+        data.putExtra(EXTRA_PRIORITY,priority);
         if(getIntent().hasExtra(EXTRA_ID)) {
             int id = getIntent().getIntExtra(AddEditTodoActivity.EXTRA_ID,-1);
             data.putExtra(EXTRA_ID,id);
         }
-
-
         setResult(RESULT_OK,data);
         finish();
     }

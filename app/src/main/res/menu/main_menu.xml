@@ -3,24 +3,27 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:title="Filter"
+        android:title="@string/filter_label"
         app:showAsAction="withText"
         android:icon="@drawable/ic_filter_list_black_24dp">
         <menu>
             <item
                 android:id="@+id/filter_done_button"
                 android:icon="@drawable/ic_check"
-                android:title="Done"/>
+                android:title="@string/done_label"/>
             <item
                 android:id="@+id/filter_undone_button"
                 android:icon="@drawable/ic_close"
-                android:title="UnDone"/>
+                android:title="@string/undone_label"/>
 
             <item
                 android:id="@+id/filter_reset_button"
                 android:icon="@drawable/ic_restore_black_24dp"
-                android:title="UnDone"/>
+                android:title="@string/reset_label"/>
         </menu>
     </item>
-    <item android:id="@+id/clear_all_button"   android:title="Clear All" android:icon="@drawable/ic_clear_all_black_24dp"/>
+    <item
+        android:id="@+id/clear_all_button"
+        android:title="@string/clear_all_label"
+        android:icon="@drawable/ic_clear_all_black_24dp"/>
 </menu>

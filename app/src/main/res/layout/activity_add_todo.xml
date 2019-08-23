@@ -43,17 +43,20 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:paddingTop="25dp">
-            <TimePicker
-                android:id="@+id/time_picker"
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"
+                android:text="Priority :"
+                style="@style/TextAppearance.AppCompat.Headline"
+                />
+            <NumberPicker
+                android:id="@+id/priority_number_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp" />
 
-            <DatePicker
-                android:id="@+id/date_picker"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+
 
         </LinearLayout>
 

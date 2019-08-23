@@ -32,8 +32,9 @@ public class TodoAdapter extends ListAdapter<Todo,TodoAdapter.TodoHolder> {
 
         @Override
         public boolean areContentsTheSame(@NonNull Todo oldItem, @NonNull Todo newItem) {
-            return oldItem.getName().equals(newItem.getName()) &&
+            return oldItem.getTitle().equals(newItem.getTitle()) &&
                     oldItem.getDescription().equals(newItem.getDescription())&&
+                    oldItem.getPriority()==newItem.getPriority() &&
                     oldItem.getDone().equals(newItem.getDone());
         }
     };
@@ -50,13 +51,11 @@ public class TodoAdapter extends ListAdapter<Todo,TodoAdapter.TodoHolder> {
     @Override
     public void onBindViewHolder(@NonNull TodoHolder holder, int position) {
         Todo currentTodo = getItem(position);
-        holder.titleTextView.setText(currentTodo.getName());
+        holder.titleTextView.setText(currentTodo.getTitle());
         holder.descriptionTextView.setText(currentTodo.getDescription());
-        holder.dateTextView.setText(currentTodo.getDate());
+        holder.priorityTextView.setText(String.valueOf(currentTodo.getPriority()));
         holder.stateImageView.setImageResource(currentTodo.getDone() ? R.drawable.ic_check:R.drawable.ic_close);
     }
-
-
 
     public Todo getTodoAt(int position){
         return getItem(position);
@@ -66,14 +65,14 @@ public class TodoAdapter extends ListAdapter<Todo,TodoAdapter.TodoHolder> {
 
         private TextView titleTextView;
         private TextView descriptionTextView;
-        private TextView dateTextView;
+        private TextView priorityTextView;
         private ImageView stateImageView;
 
         public TodoHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.title_text_view);
             descriptionTextView = itemView.findViewById(R.id.description_text_view);
-            dateTextView = itemView.findViewById(R.id.date_text_view);
+            priorityTextView = itemView.findViewById(R.id.priority_text_view);
             stateImageView = itemView.findViewById(R.id.state_image_view);
 
             itemView.setOnClickListener(new View.OnClickListener() {
